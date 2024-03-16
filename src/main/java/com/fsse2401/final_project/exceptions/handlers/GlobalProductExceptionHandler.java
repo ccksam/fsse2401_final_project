@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class GlobalProductExceptionHandler {
     @ExceptionHandler(TypeMismatchException.class)
     public ResponseEntity<ResponseBody> handleTypeMismatchException(TypeMismatchException e) {
-        ResponseBody exResponseBody = new ResponseBody("Invalid Product ID", HttpStatus.BAD_REQUEST.value());
+        ResponseBody exResponseBody = new ResponseBody("Invalid Path Variables", HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exResponseBody);
     }
 

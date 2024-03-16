@@ -1,7 +1,9 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.data.cartItem.dto.CartStatusResponseDto;
 import com.fsse2401.final_project.service.CartItemService;
 import com.fsse2401.final_project.utils.JwtUtil;
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +22,14 @@ public class CartItemApi {
     }
 
     @PutMapping("/{pid}/{quantity}")
-    public void putCartItem(
+    public CartStatusResponseDto putCartItem(
             JwtAuthenticationToken jwtToken,
             @PathVariable Integer pid,
-            @PathVariable Integer quantity) {
-        cartItemService.putCartItem(JwtUtil.getFirebaseUserData(jwtToken), pid, quantity);
+            @PathVariable Integer quantity) throws TypeMismatchException {
+        return new CartStatusResponseDto(
+                cartItemService.putCartItem(
+                        JwtUtil.getFirebaseUserData(jwtToken), pid, quantity
+                )
+        );
     }
 }

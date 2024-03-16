@@ -29,6 +29,6 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponseData getAProduct(Integer pid) {
         return new ProductResponseData(
                 productRepository.findById(pid)
-                        .orElseThrow(() -> new ProductNotFoundException(pid + "")));
+                        .orElseThrow(() -> new ProductNotFoundException(pid)));
     }
 }

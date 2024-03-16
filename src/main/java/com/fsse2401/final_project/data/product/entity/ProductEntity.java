@@ -1,8 +1,11 @@
 package com.fsse2401.final_project.data.product.entity;
 
+import com.fsse2401.final_project.data.cartItem.entity.CartItemEntity;
+import com.fsse2401.final_project.data.user.entity.UserEntity;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "product")
@@ -18,6 +21,10 @@ public class ProductEntity {
     private BigDecimal price;
     @Column(nullable = false)
     private Integer stock;
+
+    // non-use attribute, just for cascade operation on CartItemEntity
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CartItemEntity> customers;
 
     public ProductEntity() {
     }
