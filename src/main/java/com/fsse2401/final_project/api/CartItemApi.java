@@ -1,15 +1,16 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.data.cartItem.dto.CartItemResponseDto;
 import com.fsse2401.final_project.data.cartItem.dto.CartStatusResponseDto;
 import com.fsse2401.final_project.service.CartItemService;
+import com.fsse2401.final_project.utils.CartItemDataUtils;
 import com.fsse2401.final_project.utils.JwtUtil;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -19,6 +20,13 @@ public class CartItemApi {
     @Autowired
     public CartItemApi(CartItemService cartItemService) {
         this.cartItemService = cartItemService;
+    }
+
+    @GetMapping
+    public List<CartItemResponseDto> getCartItems(JwtAuthenticationToken jwtToken) {
+        return CartItemDataUtils.toCartItemDto(cartItemService.getCartItems(
+                JwtUtil.getFirebaseUserData(jwtToken)
+        ));
     }
 
     @PutMapping("/{pid}/{quantity}")
