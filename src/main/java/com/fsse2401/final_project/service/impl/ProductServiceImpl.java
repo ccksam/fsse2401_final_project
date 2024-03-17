@@ -34,8 +34,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<ProductEntity> getProductById(Integer pid) {
-        return productRepository.findById(pid);
+    public ProductEntity getProductById(Integer pid) {
+        return productRepository.findById(pid)
+                .orElseThrow(() -> new ProductNotFoundException(pid));
     }
 
     @Override

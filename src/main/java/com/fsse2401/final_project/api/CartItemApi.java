@@ -40,4 +40,15 @@ public class CartItemApi {
                 )
         );
     }
+
+    @PatchMapping("/{pid}/{quantity}")
+    public CartItemResponseDto updateCartItemQty(
+            @PathVariable Integer pid,
+            @PathVariable Integer quantity,
+            JwtAuthenticationToken jwtToken) throws TypeMismatchException {
+        return new CartItemResponseDto(
+                cartItemService.updateCartItemQty(
+                        JwtUtil.getFirebaseUserData(jwtToken), pid, quantity
+                ));
+    }
 }

@@ -10,4 +10,6 @@ public interface CartItemService {
     CartStatusResponseData putCartItem(FirebaseUserData firebaseUserData, Integer pid, Integer quantity);
 
     List<CartItemResponseData> getCartItems(FirebaseUserData firebaseUserData);
+
+    CartItemResponseData updateCartItemQty(FirebaseUserData firebaseUserData, Integer pid, Integer newQuantity);
 }

@@ -12,7 +12,7 @@ public interface ProductService {
 
     ProductResponseData getAProduct(Integer pid);
 
-    Optional<ProductEntity> getProductById(Integer pid);
+    ProductEntity getProductById(Integer pid);
 
     ProductEntity saveProduct(ProductEntity productEntity);
 }
