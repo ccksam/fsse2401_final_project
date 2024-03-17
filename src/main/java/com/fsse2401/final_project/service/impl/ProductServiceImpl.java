@@ -2,6 +2,7 @@ package com.fsse2401.final_project.service.impl;
 
 import com.fsse2401.final_project.data.product.domainObject.ProductResponseData;
 import com.fsse2401.final_project.data.product.domainObject.ProductsResponseData;
+import com.fsse2401.final_project.data.product.entity.ProductEntity;
 import com.fsse2401.final_project.exceptions.product.ProductNotFoundException;
 import com.fsse2401.final_project.repository.ProductRepository;
 import com.fsse2401.final_project.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -27,8 +29,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponseData getAProduct(Integer pid) {
-        return new ProductResponseData(
-                productRepository.findById(pid)
-                        .orElseThrow(() -> new ProductNotFoundException(pid)));
+        return new ProductResponseData(productRepository.findById(pid)
+                .orElseThrow(() -> new ProductNotFoundException(pid)));
+    }
+
+    @Override
+    public Optional<ProductEntity> getProductById(Integer pid) {
+        return productRepository.findById(pid);
+    }
+
+    @Override
+    public ProductEntity saveProduct(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
     }
 }

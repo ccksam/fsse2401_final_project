@@ -8,8 +8,8 @@ import com.fsse2401.final_project.data.user.domainObject.FirebaseUserData;
 import com.fsse2401.final_project.data.user.entity.UserEntity;
 import com.fsse2401.final_project.exceptions.product.ProductNotFoundException;
 import com.fsse2401.final_project.repository.CartItemRepository;
-import com.fsse2401.final_project.repository.ProductRepository;
 import com.fsse2401.final_project.service.CartItemService;
+import com.fsse2401.final_project.service.ProductService;
 import com.fsse2401.final_project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,20 +19,20 @@ import java.util.Optional;
 @Service
 public class CartItemServiceImpl implements CartItemService {
     private final UserService userService;
+    private final ProductService productService;
     private final CartItemRepository cartItemRepository;
-    private final ProductRepository productRepository;
 
     @Autowired
-    public CartItemServiceImpl(UserService userService, CartItemRepository cartItemRepository, ProductRepository productRepository) {
+    public CartItemServiceImpl(UserService userService, ProductService productService, CartItemRepository cartItemRepository) {
         this.userService = userService;
+        this.productService = productService;
         this.cartItemRepository = cartItemRepository;
-        this.productRepository = productRepository;
     }
 
     @Override
     public CartStatusResponseData putCartItem(FirebaseUserData firebaseUserData, Integer pid, Integer quantity) {
         if (quantity <= 0) return new CartStatusResponseData(CartStatus.REJECTED);
-        ProductEntity productEntity = productRepository.findById(pid)
+        ProductEntity productEntity = productService.getProductById(pid)
                 .orElseThrow(() -> new ProductNotFoundException(pid));
         if (!hasEnoughStock(quantity, productEntity))
             return new CartStatusResponseData(CartStatus.REJECTED);
@@ -43,11 +43,11 @@ public class CartItemServiceImpl implements CartItemService {
             CartItemEntity cartItem = cartItemEntityOptional.get();
             cartItem.setQuantity(cartItem.getQuantity() + quantity);
             cartItemRepository.save(cartItem);
-        }else{
+        } else {
             cartItemRepository.save(new CartItemEntity(quantity, userEntity, productEntity));
         }
         productEntity.setStock(productEntity.getStock() - quantity);
-        productRepository.save(productEntity);
+        productService.saveProduct(productEntity);
         return new CartStatusResponseData(CartStatus.SUCCESS);
     }
 
