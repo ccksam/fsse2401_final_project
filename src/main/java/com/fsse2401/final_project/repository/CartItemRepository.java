@@ -20,5 +20,6 @@ public interface CartItemRepository extends CrudRepository<CartItemEntity, Integ
             @Param("pid") Integer productPid
     );
 
-     List<CartItemEntity> findByUserUid(Integer uid);
+    @Query(value = "SELECT * FROM cart_item ci WHERE  ci.user_uid = :uid", nativeQuery = true)
+    List<CartItemEntity> findByUserUid(@Param("uid") Integer userUid);
 }
