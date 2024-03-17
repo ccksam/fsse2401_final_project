@@ -51,4 +51,11 @@ public class CartItemApi {
                         JwtUtil.getFirebaseUserData(jwtToken), pid, quantity
                 ));
     }
+
+    @DeleteMapping("/{pid}")
+    public CartStatusResponseDto removeCartItem(JwtAuthenticationToken jwtToken, @PathVariable Integer pid) {
+        return new CartStatusResponseDto(
+                cartItemService.removeCartItem(JwtUtil.getFirebaseUserData(jwtToken), pid)
+        );
+    }
 }

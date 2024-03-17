@@ -90,6 +90,24 @@ public class CartItemServiceImpl implements CartItemService {
         }
     }
 
+    @Override
+    public CartStatusResponseData removeCartItem(FirebaseUserData firebaseUserData, Integer pid) {
+        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(
+                userService.getEntityByFirebaseUserData(firebaseUserData).getUid(), pid);
+        if (cartItemEntityOptional.isPresent()) {
+            CartItemEntity cartItem = cartItemEntityOptional.get();
+            ProductEntity productEntity = productService.getProductById(pid);
+            productEntity.setStock(
+                    productEntity.getStock()
+                            + cartItem.getQuantity()
+            );
+            cartItemRepository.delete(cartItem);
+            return new CartStatusResponseData(CartStatus.SUCCESS);
+        } else {
+            return new CartStatusResponseData(CartStatus.REJECTED);
+        }
+    }
+
     boolean hasEnoughStock(Integer quantity, ProductEntity productEntity) {
         return productEntity.getStock() >= quantity;
     }
