@@ -1,22 +1,21 @@
 package com.fsse2401.final_project.data.cartItem.dto;
 
+
 import com.fsse2401.final_project.data.cartItem.CartStatus;
-import com.fsse2401.final_project.data.cartItem.domainObject.CartStatusResponseData;
-import jakarta.persistence.Enumerated;
 
 public class CartStatusResponseDto {
-    private CartStatus result;
+    private CartStatus status;
 
-    public CartStatusResponseDto(CartStatusResponseData cartStatusResData) {
-        this.result = cartStatusResData.getResult();
+    public CartStatusResponseDto(CartStatus status) {
+        setStatus(status);
     }
 
     // jackson lib serialized enum constant as string by default
-    public CartStatus getResult() {
-        return result;
+    public CartStatus getStatus() {
+        return status;
     }
 
-    public void setResult(CartStatus result) {
-        this.result = result;
+    private void setStatus(CartStatus status) {
+        this.status = status;
     }
 }

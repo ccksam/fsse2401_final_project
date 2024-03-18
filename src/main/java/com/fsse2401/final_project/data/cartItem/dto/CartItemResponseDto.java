@@ -15,12 +15,12 @@ public class CartItemResponseDto {
     private Integer stock;
 
     public CartItemResponseDto(CartItemResponseData cartItemResData) {
-        this.pid = cartItemResData.getPid();
-        this.name = cartItemResData.getName();
-        this.imageUrl = cartItemResData.getImageUrl();
-        this.price = cartItemResData.getPrice();
-        this.cartQuantity = cartItemResData.getCartQuantity();
-        this.stock = cartItemResData.getStock();
+        this.pid = cartItemResData.getProduct().getPid();
+        this.name = cartItemResData.getProduct().getName();
+        this.imageUrl = cartItemResData.getProduct().getimageUrl();
+        this.price = cartItemResData.getProduct().getPrice();
+        this.cartQuantity = cartItemResData.getQuantity();
+        this.stock = cartItemResData.getProduct().getStock();
     }
 
     public Integer getPid() {

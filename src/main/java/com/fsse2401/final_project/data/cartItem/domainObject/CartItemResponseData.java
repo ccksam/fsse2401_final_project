@@ -1,71 +1,51 @@
 package com.fsse2401.final_project.data.cartItem.domainObject;
 
 import com.fsse2401.final_project.data.cartItem.entity.CartItemEntity;
-
-import java.math.BigDecimal;
+import com.fsse2401.final_project.data.product.entity.ProductEntity;
+import com.fsse2401.final_project.data.user.entity.UserEntity;
 
 public class CartItemResponseData {
-    private Integer pid;
-    private String name;
-    private String imageUrl;
-    private BigDecimal price;
-    private Integer cartQuantity;
-    private Integer stock;
+    private Integer cid;
+    private Integer quantity;
+    private UserEntity user;
+    private ProductEntity product;
 
     public CartItemResponseData(CartItemEntity cartItem) {
-        this.pid = cartItem.getProduct().getPid();
-        this.name = cartItem.getProduct().getName();
-        this.imageUrl = cartItem.getProduct().getimageUrl();
-        this.price = cartItem.getProduct().getPrice();
-        this.cartQuantity = cartItem.getQuantity();
-        this.stock = cartItem.getProduct().getStock();
+        this.cid = cartItem.getCid();
+        this.quantity = cartItem.getQuantity();
+        this.user = cartItem.getUser();
+        this.product = cartItem.getProduct();
     }
 
-    public Integer getPid() {
-        return pid;
+    public Integer getCid() {
+        return cid;
     }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
-    public String getName() {
-        return name;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public UserEntity getUser() {
+        return user;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public ProductEntity getProduct() {
+        return product;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getCartQuantity() {
-        return cartQuantity;
-    }
-
-    public void setCartQuantity(Integer cartQuantity) {
-        this.cartQuantity = cartQuantity;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setProduct(ProductEntity product) {
+        this.product = product;
     }
 }

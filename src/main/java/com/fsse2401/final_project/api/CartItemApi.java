@@ -53,7 +53,9 @@ public class CartItemApi {
     }
 
     @DeleteMapping("/{pid}")
-    public CartStatusResponseDto removeCartItem(JwtAuthenticationToken jwtToken, @PathVariable Integer pid) {
+    public CartStatusResponseDto removeCartItem
+            (JwtAuthenticationToken jwtToken,
+             @PathVariable Integer pid) throws TypeMismatchException {
         return new CartStatusResponseDto(
                 cartItemService.removeCartItem(JwtUtil.getFirebaseUserData(jwtToken), pid)
         );
