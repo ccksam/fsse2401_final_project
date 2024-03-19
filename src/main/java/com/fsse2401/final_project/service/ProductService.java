@@ -14,7 +14,5 @@ public interface ProductService {
 
     ProductEntity getProductById(Integer pid);
 
-    ProductEntity saveProduct(ProductEntity productEntity);
-
     boolean outOfStock(ProductEntity product, Integer quantity);
 }

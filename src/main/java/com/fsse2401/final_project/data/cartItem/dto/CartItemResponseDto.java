@@ -17,7 +17,7 @@ public class CartItemResponseDto {
     public CartItemResponseDto(CartItemResponseData cartItemResData) {
         this.pid = cartItemResData.getProduct().getPid();
         this.name = cartItemResData.getProduct().getName();
-        this.imageUrl = cartItemResData.getProduct().getimageUrl();
+        this.imageUrl = cartItemResData.getProduct().getImageUrl();
         this.price = cartItemResData.getProduct().getPrice();
         this.cartQuantity = cartItemResData.getQuantity();
         this.stock = cartItemResData.getProduct().getStock();

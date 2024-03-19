@@ -39,11 +39,6 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductEntity saveProduct(ProductEntity productEntity) {
-        return productRepository.save(productEntity);
-    }
-
-    @Override
     public boolean outOfStock(ProductEntity product, Integer quantity) {
         return product.getStock() < quantity;
     }

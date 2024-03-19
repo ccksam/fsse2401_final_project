@@ -14,6 +14,7 @@ import com.fsse2401.final_project.service.CartItemService;
 import com.fsse2401.final_project.service.ProductService;
 import com.fsse2401.final_project.service.UserService;
 import com.fsse2401.final_project.utils.CartItemDataUtils;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,8 +40,7 @@ public class CartItemServiceImpl implements CartItemService {
         ProductEntity productEntity = productService.getProductById(pid);
         if (productService.outOfStock(productEntity, quantity)) throw new ProductOutOfStockException(pid);
         UserEntity userEntity = userService.getEntityByFirebaseUserData(firebaseUserData);
-        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository
-                .findCartItemByUserAndProduct(userEntity.getUid(), productEntity.getPid());
+        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(userEntity.getUid(), productEntity.getPid());
         if (cartItemEntityOptional.isPresent()) {
             CartItemEntity cartItem = cartItemEntityOptional.get();
             if (productService.outOfStock(productEntity, quantity + cartItem.getQuantity()))
@@ -56,7 +56,8 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public List<CartItemResponseData> getCartItems(FirebaseUserData firebaseUserData) {
         // alternate query: same result
-        //List<CartItemEntity> cartItems = cartItemRepository.findByUserUid(userService.getEntityByFirebaseUserData(firebaseUserData).getUid());
+        //1. List<CartItemEntity> cartItems = cartItemRepository.findByUserUid(userService.getEntityByFirebaseUserData(firebaseUserData).getUid());
+        //2. List<CartItemEntity> cartItems = cartItemRepository.findByUser(userService.getEntityByFirebaseUserData(firebaseUserData));
         List<CartItemEntity> cartItems = cartItemRepository.findByUser_FirebaseUid(firebaseUserData.getFirebaseUid());
         return CartItemDataUtils.toCartItemData(cartItems);
     }
@@ -64,12 +65,12 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public CartItemResponseData updateCartItemQty(FirebaseUserData firebaseUserData, Integer pid, Integer newQuantity) {
         if (newQuantity <= 0) throw new NegativeZeroQuantityException();
-        ProductEntity productEntity = productService.getProductById(pid);
         UserEntity userEntity = userService.getEntityByFirebaseUserData(firebaseUserData);
-        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(userEntity.getUid(), productEntity.getPid());
+        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(userEntity.getUid(), pid);
         if (cartItemEntityOptional.isPresent()) {
             CartItemEntity cartItem = cartItemEntityOptional.get();
-            if (productService.outOfStock(productEntity, newQuantity)) throw new ProductOutOfStockException(pid);
+            if (productService.outOfStock(cartItem.getProduct(), newQuantity))
+                throw new ProductOutOfStockException(pid);
             cartItem.setQuantity(newQuantity);
             return new CartItemResponseData(cartItemRepository.save(cartItem));
         } else {
@@ -78,14 +79,11 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
+    @Transactional // .TransactionRequiredException if not include
     public CartStatus removeCartItem(FirebaseUserData firebaseUserData, Integer pid) {
-        Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(userService.getEntityByFirebaseUserData(firebaseUserData).getUid(), pid);
-        if (cartItemEntityOptional.isPresent()) {
-            CartItemEntity cartItem = cartItemEntityOptional.get();
-            cartItemRepository.delete(cartItem);
-            return CartStatus.SUCCESS;
-        } else {
+        if (cartItemRepository.deleteByUser_FirebaseUidAndProduct_Pid(firebaseUserData.getFirebaseUid(), pid) <= 0) {
             throw new CartItemNotExistException(pid);
         }
+        return CartStatus.SUCCESS;
     }
 }

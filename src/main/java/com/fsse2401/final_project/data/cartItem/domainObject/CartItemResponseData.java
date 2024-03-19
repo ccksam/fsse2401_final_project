@@ -1,20 +1,22 @@
 package com.fsse2401.final_project.data.cartItem.domainObject;
 
 import com.fsse2401.final_project.data.cartItem.entity.CartItemEntity;
+import com.fsse2401.final_project.data.product.domainObject.ProductResponseData;
 import com.fsse2401.final_project.data.product.entity.ProductEntity;
+import com.fsse2401.final_project.data.user.domainObject.UserResponseData;
 import com.fsse2401.final_project.data.user.entity.UserEntity;
 
 public class CartItemResponseData {
     private Integer cid;
     private Integer quantity;
-    private UserEntity user;
-    private ProductEntity product;
+    private UserResponseData user;
+    private ProductResponseData product;
 
     public CartItemResponseData(CartItemEntity cartItem) {
         this.cid = cartItem.getCid();
         this.quantity = cartItem.getQuantity();
-        this.user = cartItem.getUser();
-        this.product = cartItem.getProduct();
+        this.user = new UserResponseData(cartItem.getUser());
+        this.product = new ProductResponseData(cartItem.getProduct());
     }
 
     public Integer getCid() {
@@ -33,19 +35,19 @@ public class CartItemResponseData {
         this.quantity = quantity;
     }
 
-    public UserEntity getUser() {
+    public UserResponseData getUser() {
         return user;
     }
 
-    public void setUser(UserEntity user) {
+    public void setUser(UserResponseData user) {
         this.user = user;
     }
 
-    public ProductEntity getProduct() {
+    public ProductResponseData getProduct() {
         return product;
     }
 
-    public void setProduct(ProductEntity product) {
+    public void setProduct(ProductResponseData product) {
         this.product = product;
     }
 }
