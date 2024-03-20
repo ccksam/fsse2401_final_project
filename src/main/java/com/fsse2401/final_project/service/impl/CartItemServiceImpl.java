@@ -79,11 +79,17 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    @Transactional // .TransactionRequiredException if not include
+    // .TransactionRequiredException if not include, ensuring that the deleteByUser_FirebaseUidAndProduct_Pid operation is executed within a transaction.
+    @Transactional
     public CartStatus removeCartItem(FirebaseUserData firebaseUserData, Integer pid) {
         if (cartItemRepository.deleteByUser_FirebaseUidAndProduct_Pid(firebaseUserData.getFirebaseUid(), pid) <= 0) {
             throw new CartItemNotExistException(pid);
         }
         return CartStatus.SUCCESS;
+    }
+
+    @Override
+    public List<CartItemEntity> findByUserEntity(UserEntity userEntity){
+        return cartItemRepository.findByUser(userEntity);
     }
 }

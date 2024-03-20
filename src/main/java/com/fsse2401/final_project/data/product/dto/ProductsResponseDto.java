@@ -1,7 +1,9 @@
 package com.fsse2401.final_project.data.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fsse2401.final_project.data.product.domainObject.ProductsResponseData;
+import com.fsse2401.final_project.utils.BigDecimalSerializer;
 
 import java.math.BigDecimal;
 
@@ -9,6 +11,7 @@ public class ProductsResponseDto {
     private Integer pid;
     private String name;
     private String imageUrl;
+    @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal price;
     private Boolean hasStock;
 
