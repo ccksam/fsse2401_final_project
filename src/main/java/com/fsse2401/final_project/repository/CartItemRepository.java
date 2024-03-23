@@ -21,14 +21,14 @@ public interface CartItemRepository extends CrudRepository<CartItemEntity, Integ
             @Param("pid") Integer productPid
     );
     // derived method version = Optional<CartItemEntity> findByUserAndProduct (UserEntity user, ProductEntity product)
-
+    // Below 2 methods, under the hood, Hibernate will still join tables to give back the CartItemEntity (containing user & product attributes)
 
     // (findByUserUid) select ue1_0.uid,ue1_0.email,ue1_0.firebase_uid,ue1_0.first_name,ue1_0.last_name from user ue1_0 where ue1_0.firebase_uid=?
     //SELECT * FROM cart_item ci WHERE  ci.user_uid = ?
     @Query(value = "SELECT * FROM cart_item ci WHERE  ci.user_uid = :uid", nativeQuery = true)
     List<CartItemEntity> findByUserUid(@Param("uid") Integer userUid);
 
-    // JPA derived query equivalent to above native query?
+    // JPA derived query result equivalent to above native query?
     //select cie1_0.cid,cie1_0.product_pid,cie1_0.quantity,cie1_0.user_uid from cart_item cie1_0 left join user u1_0 on u1_0.uid=cie1_0.user_uid where u1_0.firebase_uid=?
     //select ue1_0.uid,ue1_0.email,ue1_0.firebase_uid,ue1_0.first_name,ue1_0.last_name from user ue1_0 where ue1_0.uid=?
     List<CartItemEntity> findByUser_FirebaseUid(String firebaseUid);

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalProductExceptionHandler {
-    static Logger logger = LoggerFactory.getLogger(GlobalProductExceptionHandler.class);
+    private final static Logger logger = LoggerFactory.getLogger(GlobalProductExceptionHandler.class);
 
     @ExceptionHandler(TypeMismatchException.class)
     public ResponseEntity<ResponseBody> handleTypeMismatchException(TypeMismatchException e) {

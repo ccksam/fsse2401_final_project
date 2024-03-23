@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalCartItemExceptionHandler {
-    static Logger logger = LoggerFactory.getLogger(GlobalCartItemExceptionHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(GlobalCartItemExceptionHandler.class);
 
     @ExceptionHandler(NegativeZeroQuantityException.class)
     public ResponseEntity<ResponseBody> handleNegativeZeroQuantityException(NegativeZeroQuantityException e) {

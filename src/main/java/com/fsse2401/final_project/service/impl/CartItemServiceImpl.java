@@ -55,10 +55,12 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public List<CartItemResponseData> getCartItems(FirebaseUserData firebaseUserData) {
+        // always get and save user entity to db, even empty cart.
+        UserEntity user = userService.getEntityByFirebaseUserData(firebaseUserData);
         // alternate query: same result
         //1. List<CartItemEntity> cartItems = cartItemRepository.findByUserUid(userService.getEntityByFirebaseUserData(firebaseUserData).getUid());
         //2. List<CartItemEntity> cartItems = cartItemRepository.findByUser(userService.getEntityByFirebaseUserData(firebaseUserData));
-        List<CartItemEntity> cartItems = cartItemRepository.findByUser_FirebaseUid(firebaseUserData.getFirebaseUid());
+        List<CartItemEntity> cartItems = cartItemRepository.findByUser_FirebaseUid(user.getFirebaseUid());
         return CartItemDataUtils.toCartItemData(cartItems);
     }
 
@@ -79,11 +81,22 @@ public class CartItemServiceImpl implements CartItemService {
     }
 
     @Override
-    @Transactional // .TransactionRequiredException if not include
+    // .TransactionRequiredException if not include, ensuring that the deleteByUser_FirebaseUidAndProduct_Pid operation is executed within a transaction.
+    @Transactional
     public CartStatus removeCartItem(FirebaseUserData firebaseUserData, Integer pid) {
         if (cartItemRepository.deleteByUser_FirebaseUidAndProduct_Pid(firebaseUserData.getFirebaseUid(), pid) <= 0) {
             throw new CartItemNotExistException(pid);
         }
         return CartStatus.SUCCESS;
+    }
+
+    @Override
+    public List<CartItemEntity> findByUserEntity(UserEntity userEntity) {
+        return cartItemRepository.findByUser(userEntity);
+    }
+
+    @Override
+    public void deleteAll(List<CartItemEntity> cartItemEntities) {
+        cartItemRepository.deleteAll(cartItemEntities);
     }
 }

@@ -39,6 +39,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductEntity saveEntity(ProductEntity productEntity) {
+        return productRepository.save(productEntity);
+    }
+
+    @Override
+    public List<ProductEntity> saveAllProducts(List<ProductEntity> productEntities) {
+        return (List<ProductEntity>) productRepository.saveAll(productEntities);
+    }
+
+    @Override
     public boolean outOfStock(ProductEntity product, Integer quantity) {
         return product.getStock() < quantity;
     }
