@@ -3,6 +3,8 @@ package com.fsse2401.final_project.data.product.entity;
 import com.fsse2401.final_project.data.cartItem.entity.CartItemEntity;
 import com.fsse2401.final_project.data.user.entity.UserEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,15 +12,21 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 public class ProductEntity {
-    @Id
+    @Setter @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Integer pid;
+    @Setter @Getter
     @Column(nullable = false)
     private String name;
+    @Setter @Getter
     private String description;
+    @Setter @Getter
     private String imageUrl;
+    @Setter @Getter
     @Column(nullable = false, precision = 30, scale = 4)
     private BigDecimal price;
+    @Setter @Getter
     @Column(nullable = false)
     private Integer stock;
 
@@ -35,54 +43,6 @@ public class ProductEntity {
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
-        this.stock = stock;
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getimageUrl() {
-        return imageUrl;
-    }
-
-    public void setimageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
         this.stock = stock;
     }
 }

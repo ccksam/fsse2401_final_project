@@ -6,13 +6,13 @@ import com.fsse2401.final_project.service.ProductService;
 import com.fsse2401.final_project.utils.ProductDataUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// allow React webapp to use the response data in browser platform by adding header:
+// Access-Control-Allow-Origin:http://localhost:5173
+@CrossOrigin("http://localhost:5173")
 @RestController
 @RequestMapping("/public/product")
 public class ProductApi {

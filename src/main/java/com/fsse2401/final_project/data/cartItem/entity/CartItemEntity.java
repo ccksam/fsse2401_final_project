@@ -3,7 +3,11 @@ package com.fsse2401.final_project.data.cartItem.entity;
 import com.fsse2401.final_project.data.product.entity.ProductEntity;
 import com.fsse2401.final_project.data.user.entity.UserEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "cart_item")
 public class CartItemEntity {
@@ -29,37 +33,5 @@ public class CartItemEntity {
     }
 
     public CartItemEntity() {
-    }
-
-    public Integer getCid() {
-        return cid;
-    }
-
-    public void setCid(Integer cid) {
-        this.cid = cid;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public UserEntity getUser() {
-        return user;
-    }
-
-    public void setUser(UserEntity user) {
-        this.user = user;
-    }
-
-    public ProductEntity getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductEntity product) {
-        this.product = product;
     }
 }

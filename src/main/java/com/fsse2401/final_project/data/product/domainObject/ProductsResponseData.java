@@ -1,9 +1,13 @@
 package com.fsse2401.final_project.data.product.domainObject;
 
 import com.fsse2401.final_project.data.product.entity.ProductEntity;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@Setter
+@Getter
 public class ProductsResponseData {
     private Integer pid;
     private String name;
@@ -16,56 +20,8 @@ public class ProductsResponseData {
         this.pid = productEntity.getPid();
         this.name = productEntity.getName();
         this.description = productEntity.getDescription();
-        this.imageUrl = productEntity.getimageUrl();
+        this.imageUrl = productEntity.getImageUrl();
         this.price = productEntity.getPrice();
         this.stock = productEntity.getStock();
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
 }
