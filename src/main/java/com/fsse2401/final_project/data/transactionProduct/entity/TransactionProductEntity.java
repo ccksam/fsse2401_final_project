@@ -38,7 +38,7 @@ public class TransactionProductEntity {
         this.pid = cartItem.getProduct().getPid();
         this.name = cartItem.getProduct().getName();
         this.description = cartItem.getProduct().getDescription();
-        this.imageUrl = cartItem.getProduct().getimageUrl();
+        this.imageUrl = cartItem.getProduct().getImageUrl();
         this.price = cartItem.getProduct().getPrice();
         this.stock = cartItem.getProduct().getStock();
         this.quantity = cartItem.getQuantity();
