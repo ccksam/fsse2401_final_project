@@ -1,5 +1,6 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.config.EnvConfig;
 import com.fsse2401.final_project.data.cartItem.dto.CartItemResponseDto;
 import com.fsse2401.final_project.data.cartItem.dto.CartStatusResponseDto;
 import com.fsse2401.final_project.service.CartItemService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin({EnvConfig.DEV_BASE_URL,EnvConfig.PROD_BASE_URL, EnvConfig.PROD_S3_BASE_URL})
 @RequestMapping("/cart")
 public class CartItemApi {
     private final CartItemService cartItemService;

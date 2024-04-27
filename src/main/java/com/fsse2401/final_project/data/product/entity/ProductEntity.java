@@ -12,21 +12,29 @@ import java.util.List;
 @Entity
 @Table(name = "product")
 public class ProductEntity {
-    @Setter @Getter
+    @Setter
+    @Getter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Integer pid;
-    @Setter @Getter
+    @Setter
+    @Getter
     @Column(nullable = false)
     private String name;
-    @Setter @Getter
+    @Setter
+    @Getter
+    @Column(length = 1028)
     private String description;
-    @Setter @Getter
+    @Setter
+    @Getter
+    @Column(length = 2083)
     private String imageUrl;
-    @Setter @Getter
+    @Setter
+    @Getter
     @Column(nullable = false, precision = 30, scale = 4)
     private BigDecimal price;
-    @Setter @Getter
+    @Setter
+    @Getter
     @Column(nullable = false)
     private Integer stock;
 

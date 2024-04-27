@@ -93,7 +93,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     @Transactional // rollback to avoid cartItemEntity deleted from db, but transaction error occur (e.g. db disconnect)
     public TransactionResponseData finishTransaction(FirebaseUserData firebaseUserData, Integer tid) {
-        //Optional<TransactionEntity> transactionOptional = transactionRepository.findById(tid);
         TransactionEntity transaction = getEntityByTidAndFirebaseUid(tid, firebaseUserData.getFirebaseUid());
         // check if transaction in "PROCESSING" state
         if (transaction.getStatus() != TransactionStatus.PROCESSING)

@@ -23,12 +23,16 @@ public class ProductsResponseDto {
     @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal price;
     private Boolean hasStock;
+    @Getter
+    @Setter
+    private String description;
 
     public ProductsResponseDto(ProductsResponseData productsResData) {
         this.pid = productsResData.getPid();
         this.name = productsResData.getName();
         this.imageUrl = productsResData.getImageUrl();
         this.price = productsResData.getPrice();
+        this.description = productsResData.getDescription();
         this.setHasStock(productsResData.getStock());
     }
 

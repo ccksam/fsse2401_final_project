@@ -3,6 +3,7 @@ package com.fsse2401.final_project.sercurity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
@@ -20,6 +21,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/public/**").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable());
+                //.cors(Customizer.withDefaults()); // spring security level bypass all cors checking will override controller level @CrossOrigin
         http
                 .oauth2ResourceServer(
                         oauth2ResourceServer -> oauth2ResourceServer.jwt(

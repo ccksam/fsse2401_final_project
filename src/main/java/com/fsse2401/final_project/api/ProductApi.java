@@ -1,5 +1,6 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.config.EnvConfig;
 import com.fsse2401.final_project.data.product.dto.ProductResponseDto;
 import com.fsse2401.final_project.data.product.dto.ProductsResponseDto;
 import com.fsse2401.final_project.service.ProductService;
@@ -10,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-// allow React webapp to use the response data in browser platform by adding header:
-// Access-Control-Allow-Origin:http://localhost:5173
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin({EnvConfig.DEV_BASE_URL, EnvConfig.PROD_BASE_URL,EnvConfig.PROD_S3_BASE_URL})
 @RestController
 @RequestMapping("/public/product")
 public class ProductApi {

@@ -66,7 +66,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public CartItemResponseData updateCartItemQty(FirebaseUserData firebaseUserData, Integer pid, Integer newQuantity) {
-        if (newQuantity <= 0) throw new NegativeZeroQuantityException();
+        if (newQuantity < 0) throw new NegativeZeroQuantityException();
         UserEntity userEntity = userService.getEntityByFirebaseUserData(firebaseUserData);
         Optional<CartItemEntity> cartItemEntityOptional = cartItemRepository.findCartItemByUserAndProduct(userEntity.getUid(), pid);
         if (cartItemEntityOptional.isPresent()) {
