@@ -5,7 +5,11 @@ import com.fsse2401.final_project.data.product.domainObject.ProductResponseData;
 import com.fsse2401.final_project.data.product.entity.ProductEntity;
 import com.fsse2401.final_project.data.user.domainObject.UserResponseData;
 import com.fsse2401.final_project.data.user.entity.UserEntity;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class CartItemResponseData {
     private Integer cid;
     private Integer quantity;
@@ -17,37 +21,5 @@ public class CartItemResponseData {
         this.quantity = cartItem.getQuantity();
         this.user = new UserResponseData(cartItem.getUser());
         this.product = new ProductResponseData(cartItem.getProduct());
-    }
-
-    public Integer getCid() {
-        return cid;
-    }
-
-    public void setCid(Integer cid) {
-        this.cid = cid;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public UserResponseData getUser() {
-        return user;
-    }
-
-    public void setUser(UserResponseData user) {
-        this.user = user;
-    }
-
-    public ProductResponseData getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductResponseData product) {
-        this.product = product;
     }
 }

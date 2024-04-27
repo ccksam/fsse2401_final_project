@@ -1,5 +1,6 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.config.EnvConfig;
 import com.fsse2401.final_project.data.transaction.dto.TransactionResponseDto;
 import com.fsse2401.final_project.data.transaction.dto.TransactionSuccessResponseDto;
 import com.fsse2401.final_project.service.TransactionService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin({EnvConfig.DEV_BASE_URL, EnvConfig.PROD_BASE_URL, EnvConfig.PROD_S3_BASE_URL})
 @RestController
 @RequestMapping("/transaction")
 public class TransactionApi {

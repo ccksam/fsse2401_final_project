@@ -4,56 +4,41 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fsse2401.final_project.data.product.domainObject.ProductsResponseData;
 import com.fsse2401.final_project.utils.BigDecimalSerializer;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
 public class ProductsResponseDto {
+    @Setter
+    @Getter
     private Integer pid;
+    @Setter
+    @Getter
     private String name;
+    @Setter
     private String imageUrl;
+    @Setter
+    @Getter
     @JsonSerialize(using = BigDecimalSerializer.class)
     private BigDecimal price;
     private Boolean hasStock;
+    @Getter
+    @Setter
+    private String description;
 
     public ProductsResponseDto(ProductsResponseData productsResData) {
         this.pid = productsResData.getPid();
         this.name = productsResData.getName();
         this.imageUrl = productsResData.getImageUrl();
         this.price = productsResData.getPrice();
+        this.description = productsResData.getDescription();
         this.setHasStock(productsResData.getStock());
-    }
-
-    public Integer getPid() {
-        return pid;
-    }
-
-    public void setPid(Integer pid) {
-        this.pid = pid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @JsonProperty("image_url")
     public String getimageUrl() {
         return imageUrl;
-    }
-
-    public void setimageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
     }
 
     @JsonProperty("has_stock")

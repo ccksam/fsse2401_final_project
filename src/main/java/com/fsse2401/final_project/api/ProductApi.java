@@ -1,18 +1,17 @@
 package com.fsse2401.final_project.api;
 
+import com.fsse2401.final_project.config.EnvConfig;
 import com.fsse2401.final_project.data.product.dto.ProductResponseDto;
 import com.fsse2401.final_project.data.product.dto.ProductsResponseDto;
 import com.fsse2401.final_project.service.ProductService;
 import com.fsse2401.final_project.utils.ProductDataUtils;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin({EnvConfig.DEV_BASE_URL, EnvConfig.PROD_BASE_URL,EnvConfig.PROD_S3_BASE_URL})
 @RestController
 @RequestMapping("/public/product")
 public class ProductApi {
